@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban View</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- I Wayan Andika Andika Pramana Putera c14230279 -->
+    <style>
+        .Section {
+            height: 100vh;
+            width: 30vh;
+            display: inline-block;
+            justify-content: center;
+            margin-left: 8px;
+            text-align: center;
+            overflow-y: auto;
+        }
+        .body {
+           margin: 0px; 
+           padding: 0px;
+        }
+        .card {
+            margin-bottom: 10px;
+        }
+        .boardHead{
+            margin: auto;
+            width: 100%;
+            padding: 10px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary sticky-top">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1 text-white">Kanban View</span>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div>
+            <form id="taskForm">
+                <div class="mb-3 mt-3">
+                    <label class="form-label">Tugas</label>
+                    <input type="text" id="taskName" class="form-control" placeholder="Nama Tugas">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select id="taskStatus" class="form-select">
+                        <option value="Pending">Pending</option>
+                        <option value="Planning">Planning</option>
+                        <option value="Design">Design</option>
+                        <option value="Development">Development</option>
+                        <option value="Testing">Testing</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+            </form>
+            <div class="mb-3 block">
+                <div id="Pending-section" class="Section Pending-section mt-5 p-4 shadow rounded border">
+                    <div class="boardHead shadow rounded border bg-primary">Pending</div>
+                </div>
+                <div id="Planning-section" class="Section Planning-section mt-5 p-4 shadow rounded border">
+                    <div class="boardHead shadow rounded border bg-primary">Planning</div>
+                </div>
+                <div id="Design-section" class="Section Design-section mt-5 p-4 shadow rounded border">
+                    <div class="boardHead shadow rounded border bg-primary">Design</div>
+                </div>
+                <div id="Development-section" class="Section Development-section mt-5 p-4 shadow rounded border">
+                    <div class="boardHead shadow rounded border bg-primary">Development</div>
+                </div>
+                <div id="Testing-section" class="Section Testing-section mt-5 p-4 shadow rounded border">
+                    <div class="boardHead shadow rounded border bg-primary">Testing</div>
+                </div>
+                <div id="Resolved-section" class="Section Resolved-section mt-5 p-4 shadow rounded border">
+                    <div class="boardHead shadow rounded border bg-primary">Resolved</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#taskForm').on('submit', function(e) {
+                e.preventDefault(); 
+
+                var taskName = $('#taskName').val(); 
+                var taskStatus = $('#taskStatus').val(); 
+
+                if(taskName === '') {
+                    alert('Nama tugas tidak boleh kosong!');
+                    return;
+                }
+                var newCard = '<div class="card shadow-sm p-2 mt-3 bg-light rounded">' +
+                                '<div class="card-body">' +
+                                  '<h5 class="card-title">' + taskName + '</h5>' +
+                                '</div>' +
+                              '</div>';
+
+                $('#' + taskStatus + '-section').append(newCard);
+
+                $('#taskName').val('');
+
+                $('.card').on('dblclick', function() {
+                $(this).remove();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
